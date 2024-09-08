@@ -1,0 +1,68 @@
+name: ummu_driweather
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: 4.6.6
+  flutter: 
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+  dio: ^5.7.0
+  flutter_svg: ^2.0.10+1
+  get_storage: ^2.0.3
+  google_maps_flutter: ^2.4.0
+  geolocator: ^10.0.0
+  permission_handler: ^11.0.0
+  flutter_polyline_points:
+  intl: ^0.19.0
+  google_places_flutter: ^2.0.9
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+
+  assets:
+    - "assets/icons/"
+    - "assets/images/"
+
+  fonts:
+    - family: Overpass
+      fonts:
+        - asset: assets/font/Overpass-Black.ttf
+        - asset: assets/font/Overpass-Bold.ttf
+        - asset: assets/font/Overpass-ExtraBold.ttf
+        - asset: assets/font/Overpass-ExtraLight.ttf
+        - asset: assets/font/Overpass-Light.ttf
+        - asset: assets/font/Overpass-Medium.ttf
+        - asset: assets/font/Overpass-Regular.ttf
+        - asset: assets/font/Overpass-SemiBold.ttf
+        - asset: assets/font/Overpass-Thin.ttf
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  adaptive_icon_background: "#47BFDF"
+  adaptive_icon_foreground: "assets/images/launcher.png"
+  image_path: "assets/images/launcher.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/images/launcher.png"
+    background_color: "#47BFDF"
+    theme_color: "#47BFDF"
+  windows:
+    generate: true
+    image_path: "assets/images/launcher.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/launcher.png"
+
