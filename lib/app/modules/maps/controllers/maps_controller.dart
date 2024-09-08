@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -10,6 +11,7 @@ import 'package:google_places_flutter/model/prediction.dart';
 class MapsController extends GetxController {
   TextEditingController? searchController;
   RxBool isLoading = false.obs;
+  RxString cityName = 'Loading...'.obs;
 
   final GetStorage storage = GetStorage();
   final Completer<GoogleMapController> controllerMaps =
@@ -63,6 +65,12 @@ class MapsController extends GetxController {
         desiredAccuracy: LocationAccuracy.high);
     double lat = position.latitude;
     double long = position.longitude;
+
+    // Reverse geocoding to get the city name
+    List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
+    Placemark place = placemarks[0];
+
+    cityName.value = place.locality ?? "Unknown City";
 
     lat1.value = position.latitude;
     long1.value = position.longitude;

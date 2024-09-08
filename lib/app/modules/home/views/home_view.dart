@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ummu_driweather/app/modules/home/views/weather_details_view.dart';
+import 'package:ummu_driweather/app/modules/maps/controllers/maps_controller.dart';
 import 'package:ummu_driweather/app/modules/maps/views/maps_view.dart';
 import 'package:ummu_driweather/app/widgets/item_notification_widget.dart';
 
@@ -91,33 +92,39 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _appBar() {
+    final controllerMaps = Get.put(MapsController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InkWell(
-          onTap: () {
-            Get.to(() => const MapsView());
-          },
-          child: const Row(
-            children: [
-              Icon(
-                Icons.location_on_outlined,
-                size: 30,
-                color: Colors.white,
-              ),
-              SizedBox(width: 8),
-              Text('Semarang',
-                  style: TextStyle(
-                      fontFamily: 'Overpass',
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              SizedBox(width: 8),
-              Icon(
-                Icons.expand_more,
-                color: Colors.white,
-              )
-            ],
+        Expanded(
+          flex: 2,
+          child: InkWell(
+            onTap: () {
+              Get.to(() => const MapsView());
+            },
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.location_on_outlined,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                const SizedBox(width: 8),
+                Text(controllerMaps.cityName.value,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontFamily: 'Overpass',
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+                const SizedBox(width: 8),
+                const Icon(
+                  Icons.expand_more,
+                  color: Colors.white,
+                )
+              ],
+            ),
           ),
         ),
         Stack(

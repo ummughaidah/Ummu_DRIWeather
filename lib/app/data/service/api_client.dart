@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 
+import '../../modules/maps/controllers/maps_controller.dart';
 import '../models/weather_model.dart';
 
 class ApiClient {
@@ -11,6 +13,8 @@ class ApiClient {
   static const String apiKey = 'YOUR_API_KEY';
 
   //pick a location to get the weather
+  // Get the MapsController instance
+  final MapsController _mapsController = Get.find<MapsController>();
   static const location = [40.758, -73.9855]; //New York
 
   //// list the fields you want to get from the api
@@ -43,8 +47,11 @@ class ApiClient {
   //method to get the weather data
   Future<Weather> getWeather() async {
     try {
+      final double lat = _mapsController.lat1.value;
+      final double long = _mapsController.long1.value;
+
       final response = await _dio.get('/timelines', queryParameters: {
-        'location': location.join(','),
+        'location': '$lat,$long',
         'apikey': apiKey,
         'fields': fields,
         'units': units,
@@ -54,7 +61,7 @@ class ApiClient {
       });
 
       //parse the JSON data, returns the Weather data
-      print('Data Client ${response.data}');
+      print('Weather Data ${response.data}');
       return Weather.fromJson(response.data);
     } on DioError catch (e) {
       //returns the error if any
@@ -65,8 +72,11 @@ class ApiClient {
   // Method to get hourly weather data
   Future<Weather> getHourlyWeather() async {
     try {
+      final double lat = _mapsController.lat1.value;
+      final double long = _mapsController.long1.value;
+
       final response = await _dio.get('/timelines', queryParameters: {
-        'location': location.join(','),
+        'location': '$lat,$long',
         'apikey': apiKey,
         'fields': fields,
         'units': units,
@@ -118,15 +128,15 @@ class ApiClient {
       case 'Partly Cloudy':
         return 'assets/icons/cloud.svg';
       case 'Mostly Cloudy':
-        return 'assets/icons/clody.svg';
+        return 'assets/icons/cloudy.svg';
       case 'Cloudy':
         return 'assets/icons/cloud.svg';
       case 'Fog':
         return 'assets/icons/cloudy.svg';
       case 'Light Rain':
-        return 'assets/icons/rain.svg';
+        return 'assets/icons/cloud.svg';
       case 'Light Freezing Rain':
-        return 'assets/icons/rain.svg';
+        return 'assets/icons/cloud.svg';
       default:
         return '';
     }
